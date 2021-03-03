@@ -1,6 +1,6 @@
 import json
 
-fisier=open('C:/Users/RAlexandru/Desktop/json.txt', 'r')
+fisier=open('C:/Users/RAlexandru/Desktop/data.json', 'r')
 jsondata = fisier.read()
 
 # obiect=json.loads(jsondata)
@@ -9,6 +9,7 @@ jsondata = fisier.read()
 
 obj1=list()
 obj2=list()
+
 class CloudCtx:
 
     @classmethod
@@ -16,12 +17,14 @@ class CloudCtx:
         obiect = json.loads(jsondata)
         lista1 = obiect['imdata']
         dictionar={'name':None,'tenant_name':None,'description':None,'name_alias':None,'ctx_profile_name':None}
-        for elem in lista1:
-            dictionar['name']=elem['hcloudCtx']['attributes']['name'] if elem['hcloudCtx']['attributes']['name']!="" else "-"
-            dictionar['tenant_name']=elem['hcloudCtx']['attributes']['tenantName'] if elem['hcloudCtx']['attributes']['tenantName']!="" else "-"
-            dictionar['description']=elem['hcloudCtx']['attributes']['description'] if elem['hcloudCtx']['attributes']['description']!="" else "-"
-            dictionar['name_alias']=elem['hcloudCtx']['attributes']['nameAlias'] if elem['hcloudCtx']['attributes']['nameAlias']!="" else "-"
-            dictionar['ctx_profile_name']=elem['hcloudCtx']['attributes']['ctxProfileName'] if elem['hcloudCtx']['attributes']['ctxProfileName']!="" else "-"
+        super1=lista1[len(obj1)]
+        superelem=super1['hcloudCtx']['attributes']
+        # print(superelem)
+        dictionar['name']=superelem['name'] if superelem['name']!="" else "-"
+        dictionar['tenant_name']=superelem['tenantName'] if superelem['tenantName']!="" else "-"
+        dictionar['description']=superelem['description'] if superelem['description']!="" else "-"
+        dictionar['name_alias']=superelem['nameAlias'] if superelem['nameAlias']!="" else "-"
+        dictionar['ctx_profile_name']=superelem['ctxProfileName'] if superelem['ctxProfileName']!="" else "-"
         return cls(**dictionar)
 
     def __init__(self,name,tenant_name,description,name_alias,ctx_profile_name):
@@ -94,6 +97,20 @@ class CloudCtx:
 # print("\n")
 # print(obj2)
 #
-obj = CloudCtx.from_json(jsondata)
-print(obj.name_alias)
+obiect1 = CloudCtx.from_json(jsondata)
+obj1.append(obiect1)
+obiect2=CloudCtx.from_json(jsondata)
+obj1.append(obiect2)
+obiect3=CloudCtx.from_json(jsondata)
+obj1.append(obiect3)
+obiect4=CloudCtx.from_json(jsondata)
+obj1.append(obiect4)
+obiect5=CloudCtx.from_json(jsondata)
+obj1.append(obiect5)
+print(obiect5.afisare())
+print(obiect4.afisare())
+print(obiect3.afisare())
+print(obiect2.afisare())
+print(obiect1.afisare())
+
 
