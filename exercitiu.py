@@ -19,7 +19,6 @@ class CloudCtx:
         dictionar={'name':None,'tenant_name':None,'description':None,'name_alias':None,'ctx_profile_name':None}
         super1=lista1[len(obj1)]
         superelem=super1['hcloudCtx']['attributes']
-        # print(superelem)
         dictionar['name']=superelem['name'] if superelem['name']!="" else "-"
         dictionar['tenant_name']=superelem['tenantName'] if superelem['tenantName']!="" else "-"
         dictionar['description']=superelem['description'] if superelem['description']!="" else "-"
