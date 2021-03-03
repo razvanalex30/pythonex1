@@ -25,6 +25,7 @@ class CloudCtx:
         dictionar['description']=superelem['description'] if superelem['description']!="" else "-"
         dictionar['name_alias']=superelem['nameAlias'] if superelem['nameAlias']!="" else "-"
         dictionar['ctx_profile_name']=superelem['ctxProfileName'] if superelem['ctxProfileName']!="" else "-"
+        obj1.append(cls)
         return cls(**dictionar)
 
     def __init__(self,name,tenant_name,description,name_alias,ctx_profile_name):
@@ -98,15 +99,11 @@ class CloudCtx:
 # print(obj2)
 #
 obiect1 = CloudCtx.from_json(jsondata)
-obj1.append(obiect1)
 obiect2=CloudCtx.from_json(jsondata)
-obj1.append(obiect2)
 obiect3=CloudCtx.from_json(jsondata)
-obj1.append(obiect3)
 obiect4=CloudCtx.from_json(jsondata)
-obj1.append(obiect4)
 obiect5=CloudCtx.from_json(jsondata)
-obj1.append(obiect5)
+
 print(obiect5.afisare())
 print(obiect4.afisare())
 print(obiect3.afisare())
