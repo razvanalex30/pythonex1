@@ -17,21 +17,11 @@ class CloudCtx:
         lista1 = obiect['imdata']
         dictionar={'name':None,'tenant_name':None,'description':None,'name_alias':None,'ctx_profile_name':None}
         for elem in lista1:
-            dictionar['name']= elem['hcloudCtx']['attributes']['name']
-            if(dictionar['name']==""):
-                dictionar['name']="-"
-            dictionar['tenant_name']=elem['hcloudCtx']['attributes']['tenantName']
-            if (dictionar['tenant_name'] == ""):
-                dictionar['tenant_name'] = "-"
-            dictionar['description']=elem['hcloudCtx']['attributes']['description']
-            if (dictionar['description'] == ""):
-                dictionar['description'] = "-"
-            dictionar['name_alias']=elem['hcloudCtx']['attributes']['nameAlias']
-            if (dictionar['name_alias'] == ""):
-                dictionar['name_alias'] = "-"
-            dictionar['ctx_profile_name']=elem['hcloudCtx']['attributes']['ctxProfileName']
-            if (dictionar['ctx_profile_name'] == ""):
-                dictionar['ctx_profile_name'] = "-"
+            dictionar['name']=elem['hcloudCtx']['attributes']['name'] if elem['hcloudCtx']['attributes']['name']!="" else "-"
+            dictionar['tenant_name']=elem['hcloudCtx']['attributes']['tenantName'] if elem['hcloudCtx']['attributes']['tenantName']!="" else "-"
+            dictionar['description']=elem['hcloudCtx']['attributes']['description'] if elem['hcloudCtx']['attributes']['description']!="" else "-"
+            dictionar['name_alias']=elem['hcloudCtx']['attributes']['nameAlias'] if elem['hcloudCtx']['attributes']['nameAlias']!="" else "-"
+            dictionar['ctx_profile_name']=elem['hcloudCtx']['attributes']['ctxProfileName'] if elem['hcloudCtx']['attributes']['ctxProfileName']!="" else "-"
         return cls(**dictionar)
 
     def __init__(self,name,tenant_name,description,name_alias,ctx_profile_name):
@@ -103,29 +93,7 @@ class CloudCtx:
 # print(obj1[1].retrieve())
 # print("\n")
 # print(obj2)
-# json_string='''{
-#                     "awsVPC": "",
-#                     "azResourceGroup": "",
-#                     "azVirtualNetwork": "",
-#                     "childAction": "",
-#                     "ctxProfileName": "ct_ctxprofile_us-west-1",
-#                     "delegateDn": "uni/tn-infra/ctxprofile-ct_ctxprofile_us-west-1",
-#                     "description": "",
-#                     "dn": "acct-[infra]/region-[us-west-1]/context-[overlay-1]-addr-[10.10.0.0/25]",
-#                     "encap": "16777199",
-#                     "encapType": "vxlan",
-#                     "fvCtxDn": "uni/tn-infra/ctx-overlay-1",
-#                     "interSitePeeringEnabled": "yes",
-#                     "lcOwn": "local",
-#                     "modTs": "2020-10-22T16:27:14.966+00:00",
-#                     "name": "overlay-1",
-#                     "nameAlias": "",
-#                     "primaryCidr": "10.10.0.0/25",
-#                     "resolvedObjDn": "ctxdefcont/ctxProfileVrfDef-[uni/tn-infra/ctxprofile-ct_ctxprofile_us-west-1]-ctxDef-[uni/tn-infra/ctx-overlay-1]",
-#                     "status": "",
-#                     "tenantName": "infra",
-#                     "type": "regular"
-# }'''
+#
 obj = CloudCtx.from_json(jsondata)
-print(obj.ctx_profile_name)
+print(obj.name_alias)
 
