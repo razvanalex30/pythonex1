@@ -39,7 +39,6 @@ class CloudCtx:
         # time=superelem['modTs'][0:19]
         # time2=time[::-1]
         # time3=datetime.strptime(time2,"")
-
         return cls(**dictionar)
 
     def __init__(self, name, tenant_name, description, name_alias, ctx_profile_name):
@@ -48,7 +47,6 @@ class CloudCtx:
         self.description = description if description != "" else "-"
         self.name_alias = name_alias if name_alias != "" else "-"
         self.ctx_profile_name = ctx_profile_name if ctx_profile_name != "" else "-"
-
         obj1.append(self)
 
     def afisare(self):
