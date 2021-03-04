@@ -28,9 +28,12 @@ class CloudCtx:
     modTs=None
 
     def referinta(self):
-        x = obj2[obj1.index(self)]
-        self.displayed_health=int(x.current_health)
-        return x.current_health
+        x=obj2[obj1.index(self)]
+        if(x.current_health!=None):
+            self.displayed_health=int(x.current_health)
+            return x.current_health
+        else:
+            return None
 
 
     @classmethod
@@ -77,12 +80,18 @@ class HealthInst:
         dictionar2 = {'current_health': None, 'max_sev': None, "displayed_health": None}
         super2 = lista1[len(obj2)]
         superelem = super2['hcloudCtx']['children']
-        superelem2 = superelem[0]
-        superelem3 = superelem2['healthInst']['attributes']
-        dictionar2['current_health'] = superelem3['cur']
-        dictionar2['max_sev'] = superelem3['maxSev']
-        dictionar2['displayed_health'] = 'Healthy' if int(superelem3['cur']) == 100 else 'Unhealthy'
-        return cls(**dictionar2)
+        if(superelem)!=[]:
+            superelem2 = superelem[0]
+            superelem3 = superelem2['healthInst']['attributes']
+            dictionar2['current_health'] = superelem3['cur']
+            dictionar2['max_sev'] = superelem3['maxSev']
+            dictionar2['displayed_health'] = 'Healthy' if int(superelem3['cur']) == 100 else 'Unhealthy'
+            return cls(**dictionar2)
+        else:
+            dictionar2['current_health'] = None
+            dictionar2['max_sev'] = None
+            dictionar2['displayed_health'] = None
+            return cls(**dictionar2)
 
 
     def __init__(self, current_health, max_sev, displayed_health):
@@ -93,6 +102,7 @@ class HealthInst:
 
     def afisare(self):
         return 'Current Health: {} ; Max Sev: {} ; Displayed Health: {}'.format(self.current_health, self.max_sev,self.displayed_health)
+
 
 def initialization(a):
     for i in range(a):
@@ -105,7 +115,6 @@ def initialization(a):
 
 initialization(nrobjects)
 
-print("\n")
 
 ######################### Request 11 ###########################################
 # obj1.sort(key=lambda x: x.displayed_health)
