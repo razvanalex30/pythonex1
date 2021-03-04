@@ -70,7 +70,6 @@ class CloudCtx:
         obj1.append(self)
 
     def afisare(self):
-        self.referinta()
         return 'Name: {} ; Tenant Name: {} ; Current Health: {} ; ModTs: {}'.format(self.name, self.tenant_name, self.displayed_health,self.modTs)
 
 
@@ -111,8 +110,7 @@ def initialization(a):
     for i in range(a):
         CloudCtx.from_json(jsondata)
         HealthInst.from_json2(jsondata)
-    for i in range(len(obj1)):
-        obj1[i].afisare()
+        obj1[i].referinta()
     return None
 
 
