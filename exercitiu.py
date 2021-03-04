@@ -4,9 +4,12 @@ from datetime import datetime
 fisier = open('C:/Users/RAlexandru/Desktop/data.json', 'r')
 jsondata = fisier.read()
 
+objectjson=json.loads(jsondata)
+nrobjects=int(objectjson['totalCount'])
+
+
 obj1 = list()
 obj2 = list()
-
 
 
 def isempty(a):
@@ -59,9 +62,7 @@ class CloudCtx:
 
     def afisare(self):
         self.referinta()
-        return 'Name: {} ; Tenant Name: {} ; Displayed Health: {} ; ModTs: {}'.format(self.name, self.tenant_name, self.displayed_health,self.modTs)
-
-
+        return 'Name: {} ; Tenant Name: {} ; Current Health: {} ; ModTs: {}'.format(self.name, self.tenant_name, self.displayed_health,self.modTs)
 
 
 class HealthInst:
@@ -92,24 +93,15 @@ class HealthInst:
     def afisare(self):
         return 'Current Health: {} ; Max Sev: {} ; Displayed Health: {}'.format(self.current_health, self.max_sev,self.displayed_health)
 
+def initializare(a):
+    for i in range(a):
+        CloudCtx.from_json(jsondata)
+        HealthInst.from_json2(jsondata)
+    return None
 
-obiect1 = CloudCtx.from_json(jsondata)
-obiect2 = CloudCtx.from_json(jsondata)
-obiect3 = CloudCtx.from_json(jsondata)
-obiect4 = CloudCtx.from_json(jsondata)
-obiect5 = CloudCtx.from_json(jsondata)
 
-obiect6 = HealthInst.from_json2(jsondata)
-obiect7 = HealthInst.from_json2(jsondata)
-obiect8 = HealthInst.from_json2(jsondata)
-obiect9 = HealthInst.from_json2(jsondata)
-obiect10 = HealthInst.from_json2(jsondata)
+initializare(nrobjects)
 
-print(obiect1.afisare())
-print(obiect2.afisare())
-print(obiect3.afisare())
-print(obiect4.afisare())
-print(obiect5.afisare())
 print("\n")
 
 ######################### Request 11 ###########################################
@@ -123,6 +115,7 @@ def trackobiecte(a):
 
 print(trackobiecte(obj1))
 ################################# Request 15 ###################################
+
 obj1.sort(key=lambda x: datetime.strptime(x.modTs,"%d-%m-%Y %I:%M:%S %p"),reverse=True)
 for i in range(len(obj1)):
     print("Name: {}; Tenant Name: {}; Displayed Health: {}; ModTS: {};".format(obj1[i].name,obj1[i].tenant_name,obj1[i].displayed_health,obj1[i].modTs))
