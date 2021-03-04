@@ -8,6 +8,12 @@ obj1 = list()
 obj2 = list()
 
 
+
+def isempty(a):
+    if a=="":
+        return "-"
+    else:
+        return a
 class CloudCtx:
 
     name=None
@@ -16,7 +22,7 @@ class CloudCtx:
     name_alias=None
     ctx_profile_name=None
     displayed_health = None
-    # modTs=None
+    modTs=None
 
     def referinta(self):
         x = obj2[obj1.index(self)]
@@ -43,19 +49,18 @@ class CloudCtx:
         return cls(**dictionar)
 
     def __init__(self, name, tenant_name, description, name_alias, ctx_profile_name,modTs):
-        self.name = name if name != "" else "-"
-        self.tenant_name = tenant_name if tenant_name != "" else "-"
-        self.description = description if description != "" else "-"
-        self.name_alias = name_alias if name_alias != "" else "-"
-        self.ctx_profile_name = ctx_profile_name if ctx_profile_name != "" else "-"
-        self.modTs=modTs if modTs != "" else "-"
+        self.name = isempty(name)
+        self.tenant_name = isempty(tenant_name)
+        self.description = isempty(description)
+        self.name_alias = isempty(name_alias)
+        self.ctx_profile_name = isempty(ctx_profile_name)
+        self.modTs=isempty(modTs)
         obj1.append(self)
 
     def afisare(self):
         self.referinta()
         return 'Name: {} ; Tenant Name: {} ; Displayed Health: {} ; ModTs: {}'.format(self.name, self.tenant_name, self.displayed_health,self.modTs)
-    # def afisare(self):
-    #       return 'Name: {}; Tenant Name: {}; ModTs: {}'.format(self.name,self.tenant_name,self.modTs)
+
 
 
 
@@ -94,8 +99,6 @@ obiect3 = CloudCtx.from_json(jsondata)
 obiect4 = CloudCtx.from_json(jsondata)
 obiect5 = CloudCtx.from_json(jsondata)
 
-
-
 obiect6 = HealthInst.from_json2(jsondata)
 obiect7 = HealthInst.from_json2(jsondata)
 obiect8 = HealthInst.from_json2(jsondata)
@@ -108,16 +111,18 @@ print(obiect3.afisare())
 print(obiect4.afisare())
 print(obiect5.afisare())
 print("\n")
-# print("\n")
+
+######################### Request 11 ###########################################
 # obj1.sort(key=lambda x: x.displayed_health)
 #
 # for i in range(len(obj1)):
 #     print("Name: {}; Tenant Name: {}; Displayed Health: {}".format(obj1[i].name,obj1[i].tenant_name,obj1[i].displayed_health))
 # print("\n")
-# def trackobiecte(a):
-#     return len(a)
+def trackobiecte(a):
+    return len(a)
 
-# print(trackobiecte(obj1))
+print(trackobiecte(obj1))
+################################# Request 15 ###################################
 obj1.sort(key=lambda x: datetime.strptime(x.modTs,"%d-%m-%Y %I:%M:%S %p"),reverse=True)
 for i in range(len(obj1)):
     print("Name: {}; Tenant Name: {}; Displayed Health: {}; ModTS: {};".format(obj1[i].name,obj1[i].tenant_name,obj1[i].displayed_health,obj1[i].modTs))
