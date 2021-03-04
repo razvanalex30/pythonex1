@@ -84,26 +84,15 @@ obiect3 = CloudCtx.from_json(jsondata)
 obiect4 = CloudCtx.from_json(jsondata)
 obiect5 = CloudCtx.from_json(jsondata)
 
-# print(obiect1.afisare())
-# print(obiect2.afisare())
-# print(obiect3.afisare())
-# print(obiect4.afisare())
-# print(obiect5.afisare())
+
 
 obiect6 = HealthInst.from_json2(jsondata)
 obiect7 = HealthInst.from_json2(jsondata)
 obiect8 = HealthInst.from_json2(jsondata)
 obiect9 = HealthInst.from_json2(jsondata)
 obiect10 = HealthInst.from_json2(jsondata)
-print("\n")
-# print(obiect6.afisare())
-# print(obiect7.afisare())
-# print(obiect8.afisare())
-# print(obiect9.afisare())
-# print(obiect10.afisare())
-print("\n")
 
-# print(obiect4.referinta())
+
 print(obiect5.afisare())
 
 # print(obiect2.referinta().current_health)
