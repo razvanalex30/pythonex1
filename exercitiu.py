@@ -1,6 +1,12 @@
 import json
 from datetime import datetime
+import sys
 
+# if len(sys.argv)<2:
+#     print("Input File Missing")
+#     sys.exit()
+# with open(sys.argv[1]) as fisier:
+#     jsondata = fisier.read()
 fisier = open('C:/Users/RAlexandru/Desktop/data3.json', 'r')
 jsondata = fisier.read()
 
