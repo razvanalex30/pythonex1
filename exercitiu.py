@@ -18,8 +18,8 @@ class CloudCtx:
 
     def referinta(self):
         x = obj2[obj1.index(self)]
-        self.displayed_health=x.displayed_health
-        return x.displayed_health
+        self.displayed_health=int(x.current_health)
+        return x.current_health
 
 
     @classmethod
@@ -46,7 +46,8 @@ class CloudCtx:
         obj1.append(self)
 
     def afisare(self):
-        return 'Name: {} ; Tenant Name: {} ; Displayed Health: {} ;'.format(self.name, self.tenant_name, self.referinta())
+        self.referinta()
+        return 'Name: {} ; Tenant Name: {} ; Displayed Health: {} ;'.format(self.name, self.tenant_name, self.displayed_health)
 
 
 class HealthInst:
@@ -92,7 +93,16 @@ obiect8 = HealthInst.from_json2(jsondata)
 obiect9 = HealthInst.from_json2(jsondata)
 obiect10 = HealthInst.from_json2(jsondata)
 
-
+print(obiect1.afisare())
+print(obiect2.afisare())
+print(obiect3.afisare())
+print(obiect4.afisare())
 print(obiect5.afisare())
 
-# print(obiect2.referinta().current_health)
+print("\n")
+obj1.sort(key=lambda x: x.displayed_health)
+
+for i in range(len(obj1)):
+    print(obj1[i].displayed_health)
+
+
