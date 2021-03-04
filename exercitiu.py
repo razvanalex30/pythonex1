@@ -10,6 +10,11 @@ obj2=list()
 class CloudCtx:
 
     @classmethod
+    def referinta(cls):
+        x = obj2[obj1.index(cls)]
+        return x
+
+    @classmethod
     def from_json(cls,jsondata):
         obiect = json.loads(jsondata)
         lista1 = obiect['imdata']
@@ -24,7 +29,7 @@ class CloudCtx:
         obj1.append(cls)
         return cls(**dictionar)
 
-    def __init__(self,name,tenant_name,description,name_alias,ctx_profile_name):
+    def __init__(self,name,tenant_name,description,name_alias,ctx_profile_name,x):
         self.name=name if name !="" else "-"
         self.tenant_name=tenant_name if tenant_name!="" else "-"
         self.description=description if description!="" else "-"
@@ -88,5 +93,10 @@ print(obiect7.afisare())
 print(obiect8.afisare())
 print(obiect9.afisare())
 print(obiect10.afisare())
+print("\n")
+print(obj1)
+print(id(obj2[1]))
+
+print(id(obiect2.referinta()))
 
 
