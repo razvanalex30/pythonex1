@@ -3,9 +3,6 @@ import json
 fisier=open('C:/Users/RAlexandru/Desktop/data.json', 'r')
 jsondata = fisier.read()
 
-# obiect=json.loads(jsondata)
-# lista1=obiect['imdata']
-# counter=int(obiect['totalCount'])
 
 obj1=list()
 obj2=list()
@@ -19,20 +16,20 @@ class CloudCtx:
         dictionar={'name':None,'tenant_name':None,'description':None,'name_alias':None,'ctx_profile_name':None}
         super1=lista1[len(obj1)]
         superelem=super1['hcloudCtx']['attributes']
-        dictionar['name']=superelem['name'] if superelem['name']!="" else "-"
-        dictionar['tenant_name']=superelem['tenantName'] if superelem['tenantName']!="" else "-"
-        dictionar['description']=superelem['description'] if superelem['description']!="" else "-"
-        dictionar['name_alias']=superelem['nameAlias'] if superelem['nameAlias']!="" else "-"
-        dictionar['ctx_profile_name']=superelem['ctxProfileName'] if superelem['ctxProfileName']!="" else "-"
+        dictionar['name']=superelem['name']
+        dictionar['tenant_name']=superelem['tenantName']
+        dictionar['description']=superelem['description']
+        dictionar['name_alias']=superelem['nameAlias']
+        dictionar['ctx_profile_name']=superelem['ctxProfileName']
         obj1.append(cls)
         return cls(**dictionar)
 
     def __init__(self,name,tenant_name,description,name_alias,ctx_profile_name):
-        self.name=name
-        self.tenant_name=tenant_name
-        self.description=description
-        self.name_alias=name_alias
-        self.ctx_profile_name=ctx_profile_name
+        self.name=name if name !="" else "-"
+        self.tenant_name=tenant_name if tenant_name!="" else "-"
+        self.description=description if description!="" else "-"
+        self.name_alias=name_alias if name_alias!="" else "-"
+        self.ctx_profile_name=ctx_profile_name if ctx_profile_name!="" else "-"
 
     def afisare(self):
         return 'Name: {} ; Tenant Name: {} ; Description: {} ; Name Alias: {} ; Ctx Profile Name: {} ;'.format(self.name,
