@@ -88,9 +88,6 @@ class HealthInst:
             dictionar2['displayed_health'] = 'Healthy' if int(superelem3['cur']) == 100 else 'Unhealthy'
             return cls(**dictionar2)
         else:
-            dictionar2['current_health'] = None
-            dictionar2['max_sev'] = None
-            dictionar2['displayed_health'] = None
             return cls(**dictionar2)
 
 
