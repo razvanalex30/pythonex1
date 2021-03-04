@@ -1,7 +1,7 @@
 import json
 from datetime import datetime
 
-fisier = open('C:/Users/RAlexandru/Desktop/data.json', 'r')
+fisier = open('C:/Users/RAlexandru/Desktop/data3.json', 'r')
 jsondata = fisier.read()
 
 objectjson=json.loads(jsondata)
@@ -84,6 +84,7 @@ class HealthInst:
         dictionar2['displayed_health'] = 'Healthy' if int(superelem3['cur']) == 100 else 'Unhealthy'
         return cls(**dictionar2)
 
+
     def __init__(self, current_health, max_sev, displayed_health):
         self.current_health = current_health
         self.max_sev = max_sev
@@ -93,14 +94,16 @@ class HealthInst:
     def afisare(self):
         return 'Current Health: {} ; Max Sev: {} ; Displayed Health: {}'.format(self.current_health, self.max_sev,self.displayed_health)
 
-def initializare(a):
+def initialization(a):
     for i in range(a):
         CloudCtx.from_json(jsondata)
         HealthInst.from_json2(jsondata)
+    for i in range(len(obj1)):
+        obj1[i].afisare()
     return None
 
 
-initializare(nrobjects)
+initialization(nrobjects)
 
 print("\n")
 
@@ -120,3 +123,4 @@ obj1.sort(key=lambda x: datetime.strptime(x.modTs,"%d-%m-%Y %I:%M:%S %p"),revers
 for i in range(len(obj1)):
     print("Name: {}; Tenant Name: {}; Displayed Health: {}; ModTS: {};".format(obj1[i].name,obj1[i].tenant_name,obj1[i].displayed_health,obj1[i].modTs))
 
+fisier.close()
