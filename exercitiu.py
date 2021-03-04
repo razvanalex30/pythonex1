@@ -37,73 +37,56 @@ class CloudCtx:
 
 
 
-# class HealthInst:
-#
-#     def __init__(self,current_health,max_sev):
-#         self.current_health=current_health
-#         self.max_sev=max_sev
-#
-#     def afisare(self):
-#         return 'Current Health: {} ; Max Sev: {} ;'.format(self.current_health, self.max_sev)
-#
-#     def status_health(self):
-#         if int(self.current_health)==100:
-#             return 'Healthy'
-#         else:
-#             return 'Unhealthy'
-#
-# def func1(a):
-#     for elem in a:
-#         print(type(elem))
-#         name=elem['hcloudCtx']['attributes']['name']
-#         if(name==""):
-#             name="-"
-#         tenant_name=elem['hcloudCtx']['attributes']['tenantName']
-#         if (tenant_name == ""):
-#             tenant_name = "-"
-#         description=elem['hcloudCtx']['attributes']['description']
-#         if (description == ""):
-#             description = "-"
-#         name_alias=elem['hcloudCtx']['attributes']['nameAlias']
-#         if (name_alias == ""):
-#             name_alias = "-"
-#         ctx_profile_name=elem['hcloudCtx']['attributes']['ctxProfileName']
-#         if (ctx_profile_name == ""):
-#             ctx_profile_name = "-"
-#         obj = CloudCtx(name,tenant_name,description,name_alias,ctx_profile_name)
-#         obj1.append(obj)
-#         print(obj.afisare())
-#
-#
-# def func2(a):
-#     for elem in a:
-#         current_health=elem['hcloudCtx']['children']
-#         for elem2 in current_health:
-#             current_health=elem2['healthInst']['attributes']['cur']
-#             max_sev=elem2['healthInst']['attributes']['maxSev']
-#             obj3=HealthInst(current_health,max_sev)
-#             obj2.append(obj3)
-#             print(obj3.afisare(),obj3.status_health())
-#
-# func1(lista1)
-# print("\n")
-# func2(lista1)
-# fisier.close()
-# print("\n")
-# print(obj1[1].retrieve())
-# print("\n")
-# print(obj2)
-#
-obiect1 = CloudCtx.from_json(jsondata)
-obiect2=CloudCtx.from_json(jsondata)
-obiect3=CloudCtx.from_json(jsondata)
-obiect4=CloudCtx.from_json(jsondata)
-obiect5=CloudCtx.from_json(jsondata)
+class HealthInst:
 
-print(obiect5.afisare())
-print(obiect4.afisare())
-print(obiect3.afisare())
-print(obiect2.afisare())
+    @classmethod
+    def from_json2(cls,jsondata):
+        obiect = json.loads(jsondata)
+        lista1 = obiect['imdata']
+        dictionar2={'current_health': None,'max_sev':None,"displayed_health":None}
+        super2 = lista1[len(obj2)]
+        superelem=super2['hcloudCtx']['children']
+        superelem2=superelem[0]
+        superelem3=superelem2['healthInst']['attributes']
+        dictionar2['current_health']=superelem3['cur']
+        dictionar2['max_sev']=superelem3['maxSev']
+        dictionar2['displayed_health']='Healthy' if int(superelem3['cur'])==100 else 'Unhealthy'
+        obj2.append(cls)
+        return cls(**dictionar2)
+
+
+    def __init__(self,current_health,max_sev,displayed_health):
+        self.current_health=current_health
+        self.max_sev=max_sev
+        self.displayed_health=displayed_health
+
+    def afisare(self):
+        return 'Current Health: {} ; Max Sev: {} ; Displayed Health: {}'.format(self.current_health, self.max_sev,self.displayed_health)
+
+
+
+obiect1 = CloudCtx.from_json(jsondata)
+obiect2 = CloudCtx.from_json(jsondata)
+obiect3 = CloudCtx.from_json(jsondata)
+obiect4 = CloudCtx.from_json(jsondata)
+obiect5 = CloudCtx.from_json(jsondata)
+
 print(obiect1.afisare())
+print(obiect2.afisare())
+print(obiect3.afisare())
+print(obiect4.afisare())
+print(obiect5.afisare())
+
+obiect6 = HealthInst.from_json2(jsondata)
+obiect7 =HealthInst.from_json2(jsondata)
+obiect8 =HealthInst.from_json2(jsondata)
+obiect9 =HealthInst.from_json2(jsondata)
+obiect10 =HealthInst.from_json2(jsondata)
+print("\n")
+print(obiect6.afisare())
+print(obiect7.afisare())
+print(obiect8.afisare())
+print(obiect9.afisare())
+print(obiect10.afisare())
 
 
