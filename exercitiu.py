@@ -16,7 +16,7 @@ class CloudCtx:
     name_alias=None
     ctx_profile_name=None
     displayed_health = None
-    modTs=None
+    # modTs=None
 
     def referinta(self):
         x = obj2[obj1.index(self)]
@@ -28,7 +28,7 @@ class CloudCtx:
     def from_json(cls, jsondata):
         obiect = json.loads(jsondata)
         lista1 = obiect['imdata']
-        dictionar = {'name': None, 'tenant_name': None, 'description': None, 'name_alias': None, 'ctx_profile_name': None, 'modTs':None}
+        dictionar = {'name': None, 'tenant_name': None, 'description': None, 'name_alias': None, 'ctx_profile_name': None}
         super1 = lista1[len(obj1)]
         superelem = super1['hcloudCtx']['attributes']
         dictionar['name'] = superelem['name']
@@ -36,19 +36,18 @@ class CloudCtx:
         dictionar['description'] = superelem['description']
         dictionar['name_alias'] = superelem['nameAlias']
         dictionar['ctx_profile_name'] = superelem['ctxProfileName']
-        time=superelem['modTs'][0:19]
-        time2=time[::-1]
-        time3=datetime.strptime(time2,"")
+        # time=superelem['modTs'][0:19]
+        # time2=time[::-1]
+        # time3=datetime.strptime(time2,"")
 
         return cls(**dictionar)
 
-    def __init__(self, name, tenant_name, description, name_alias, ctx_profile_name,modTs):
+    def __init__(self, name, tenant_name, description, name_alias, ctx_profile_name):
         self.name = name if name != "" else "-"
         self.tenant_name = tenant_name if tenant_name != "" else "-"
         self.description = description if description != "" else "-"
         self.name_alias = name_alias if name_alias != "" else "-"
         self.ctx_profile_name = ctx_profile_name if ctx_profile_name != "" else "-"
-        self.modTs=modTs if modTs!="" else "-"
 
         obj1.append(self)
 
