@@ -109,7 +109,7 @@ print("\n")
 obj1.sort(key=lambda x: x.displayed_health)
 
 for i in range(len(obj1)):
-    print(obj1[i].displayed_health)
+    print("Name: {}; Tenant Name: {}; Displayed Health: {}".format(obj1[i].name,obj1[i].tenant_name,obj1[i].displayed_health))
 print("\n")
 def trackobiecte(a):
     return len(a)
