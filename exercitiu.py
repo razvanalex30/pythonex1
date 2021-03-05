@@ -92,7 +92,7 @@ class HealthInst:
         dictionar2 = {'current_health': None, 'max_sev': None, "displayed_health": None}
         super2 = listimdata[len(objHealthInst)]
         superelem = super2['hcloudCtx']['children']
-        if (superelem) != []:
+        if superelem != []:
             superelem2 = superelem[0]
             superelem3 = superelem2['healthInst']['attributes']
             dictionar2['current_health'] = superelem3['cur']
