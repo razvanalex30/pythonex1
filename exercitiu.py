@@ -71,7 +71,7 @@ class CloudCtx:
 
     def afisare(self):
         '''
-        This method prints: Name; Tenant Name; Current Health; ModTs;
+        This method prints(Name, Tenant Name, Current Health, ModTs)
         '''
         return 'Name: {} ; Tenant Name: {} ; Current Health: {} ; ModTs: {}'.format(self.name, self.tenant_name, self.displayed_health,self.modTs)
 
