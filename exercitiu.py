@@ -27,6 +27,7 @@ def isempty(a):
 
 
 class CloudCtx:
+    counter = 0
     name = None
     tenant_name = None
     description = None
@@ -71,6 +72,7 @@ class CloudCtx:
         self.modTs = isempty(modTs)
         objCloudCtx.append(self)
         self.reference()
+        CloudCtx.counter += 1
 
     def display(self):
 
@@ -86,6 +88,7 @@ class HealthInst:
     current_health = None
     max_sev = None
     displayed_health = None
+    counter = 0
 
     @classmethod
     def from_json2(cls):
@@ -106,6 +109,7 @@ class HealthInst:
         self.current_health = current_health
         self.max_sev = max_sev
         self.displayed_health = displayed_health
+        HealthInst.counter += 1
 
     def afisare(self):
         return '''
@@ -135,11 +139,13 @@ def trackobiecte(a):
     return len(a)
 
 
-print(trackobiecte(objCloudCtx))
+# print(trackobiecte(objCloudCtx))
 ################################# Request 15 ###################################
 
 # obj1.sort(key=lambda x: datetime.strptime(x.modTs,"%d-%m-%Y %I:%M:%S %p"),reverse=True)
 # for i in range(len(obj1)):
 #     print(obj1[i].display())
-print(len(objHealthInst))
+
+print(CloudCtx.counter)
+print(HealthInst.counter)
 fread.close()
