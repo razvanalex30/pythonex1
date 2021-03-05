@@ -1,15 +1,15 @@
 import json
 from datetime import datetime
 
-# import sys
-#
-# if len(sys.argv)<2:
-#     print("Input File is missing!")
-#     sys.exit()
-# with open(sys.argv[1]) as fisier:
-#     jsondata = fisier.read()
-fread = open('C:/Users/RAlexandru/Desktop/data4.json', 'r')
-jsondata = fread.read()
+import sys
+
+if len(sys.argv)<2:
+    print("Input File is missing!")
+    sys.exit()
+with open(sys.argv[1]) as fread:
+    jsondata = fread.read()
+# fread = open('C:/Users/RAlexandru/Desktop/data4.json', 'r')
+# jsondata = fread.read()
 
 objectjson = json.loads(jsondata)
 nrobjects = int(objectjson['totalCount'])
