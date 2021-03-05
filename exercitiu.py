@@ -13,6 +13,7 @@ jsondata = fread.read()
 
 objectjson = json.loads(jsondata)
 nrobjects = int(objectjson['totalCount'])
+listimdata = objectjson['imdata']
 
 objCloudCtx = list()
 objHealthInst = list()
@@ -44,10 +45,9 @@ class CloudCtx:
 
     @classmethod
     def from_json(cls, jsondata):
-        lista1 = objectjson['imdata']
         dictionar = {'name': None, 'tenant_name': None, 'description': None, 'name_alias': None,
                      'ctx_profile_name': None, 'modTs': None}
-        super1 = lista1[len(objCloudCtx)]
+        super1 = listimdata[len(objCloudCtx)]
         superelem = super1['hcloudCtx']['attributes']
         dictionar['name'] = superelem['name']
         dictionar['tenant_name'] = superelem['tenantName']
@@ -58,7 +58,7 @@ class CloudCtx:
         date_object = datetime.strptime(time, "%Y-%m-%dT%H:%M:%S")
         date_time = date_object.strftime("%d-%m-%Y %I:%M:%S %p")
         dictionar['modTs'] = date_time
-        objhealth = HealthInst.from_json2(jsondata)
+        objhealth = HealthInst.from_json2()
         objHealthInst.append(objhealth)
         return cls(**dictionar)
 
@@ -88,10 +88,9 @@ class HealthInst:
     displayed_health = None
 
     @classmethod
-    def from_json2(cls, jsondata):
-        lista1 = objectjson['imdata']
+    def from_json2(cls):
         dictionar2 = {'current_health': None, 'max_sev': None, "displayed_health": None}
-        super2 = lista1[len(objHealthInst)]
+        super2 = listimdata[len(objHealthInst)]
         superelem = super2['hcloudCtx']['children']
         if (superelem) != []:
             superelem2 = superelem[0]
