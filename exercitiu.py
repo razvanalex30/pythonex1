@@ -58,6 +58,8 @@ class CloudCtx:
         date_object = datetime.strptime(time, "%Y-%m-%dT%H:%M:%S")
         date_time = date_object.strftime("%d-%m-%Y %I:%M:%S %p")
         dictionar['modTs']=date_time
+        obiect=HealthInst.from_json2(jsondata)
+        obj2.append(obiect)
         return cls(**dictionar)
 
     def __init__(self, name, tenant_name, description, name_alias, ctx_profile_name,modTs):
@@ -69,12 +71,15 @@ class CloudCtx:
         self.modTs=isempty(modTs)
         obj1.append(self)
 
+
     def afisare(self):
 
-        return '''Name: {} ;
+        return '''
+        Name: {} ;
         Tenant Name: {} ;
         Current Health: {} ;
-        ModTs: {}'''.format(self.name, self.tenant_name, self.displayed_health,self.modTs)
+        ModTs: {}
+        '''.format(self.name, self.tenant_name, self.displayed_health,self.modTs)
 
 
 class HealthInst:
@@ -104,16 +109,18 @@ class HealthInst:
         self.current_health = current_health
         self.max_sev = max_sev
         self.displayed_health = displayed_health
-        obj2.append(self)
 
     def afisare(self):
-        return 'Current Health: {} ; Max Sev: {} ; Displayed Health: {}'.format(self.current_health, self.max_sev,self.displayed_health)
+        return '''
+        Current Health: {} ;
+        Max Sev: {} ;
+        Displayed Health: {}
+          '''.format(self.current_health, self.max_sev,self.displayed_health)
 
 
 def initialization(a):
     for i in range(a):
         CloudCtx.from_json(jsondata)
-        HealthInst.from_json2(jsondata)
         obj1[i].referinta()
     return None
 
