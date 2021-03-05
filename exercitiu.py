@@ -7,15 +7,15 @@ from datetime import datetime
 #     sys.exit()
 # with open(sys.argv[1]) as fisier:
 #     jsondata = fisier.read()
-fisier = open('C:/Users/RAlexandru/Desktop/data3.json', 'r')
-jsondata = fisier.read()
+fread = open('C:/Users/RAlexandru/Desktop/data3.json', 'r')
+jsondata = fread.read()
 
 objectjson=json.loads(jsondata)
 nrobjects=int(objectjson['totalCount'])
 
 
-obj1 = list()
-obj2 = list()
+objCloudCtx = list()
+objHealthInst = list()
 
 
 def isempty(a):
@@ -33,8 +33,8 @@ class CloudCtx:
     displayed_health = 0
     modTs=None
 
-    def referinta(self):
-        x=obj2[obj1.index(self)]
+    def reference(self):
+        x=objHealthInst[objCloudCtx.index(self)]
         if(x.current_health!=None):
             self.displayed_health=int(x.current_health)
             return x.current_health
@@ -47,7 +47,7 @@ class CloudCtx:
         obiect = json.loads(jsondata)
         lista1 = obiect['imdata']
         dictionar = {'name': None, 'tenant_name': None, 'description': None, 'name_alias': None, 'ctx_profile_name': None, 'modTs': None}
-        super1 = lista1[len(obj1)]
+        super1 = lista1[len(objCloudCtx)]
         superelem = super1['hcloudCtx']['attributes']
         dictionar['name'] = superelem['name']
         dictionar['tenant_name'] = superelem['tenantName']
@@ -58,8 +58,8 @@ class CloudCtx:
         date_object = datetime.strptime(time, "%Y-%m-%dT%H:%M:%S")
         date_time = date_object.strftime("%d-%m-%Y %I:%M:%S %p")
         dictionar['modTs']=date_time
-        obiect=HealthInst.from_json2(jsondata)
-        obj2.append(obiect)
+        objhealth=HealthInst.from_json2(jsondata)
+        objHealthInst.append(objhealth)
         return cls(**dictionar)
 
     def __init__(self, name, tenant_name, description, name_alias, ctx_profile_name,modTs):
@@ -69,8 +69,8 @@ class CloudCtx:
         self.name_alias = isempty(name_alias)
         self.ctx_profile_name = isempty(ctx_profile_name)
         self.modTs=isempty(modTs)
-        obj1.append(self)
-        self.referinta()
+        objCloudCtx.append(self)
+        self.reference()
 
 
     def afisare(self):
@@ -93,7 +93,7 @@ class HealthInst:
         obiect = json.loads(jsondata)
         lista1 = obiect['imdata']
         dictionar2 = {'current_health': None, 'max_sev': None, "displayed_health": None}
-        super2 = lista1[len(obj2)]
+        super2 = lista1[len(objHealthInst)]
         superelem = super2['hcloudCtx']['children']
         if(superelem)!=[]:
             superelem2 = superelem[0]
@@ -124,24 +124,22 @@ def initialization(a):
         CloudCtx.from_json(jsondata)
     return None
 
-
 initialization(nrobjects)
 
-
 ######################### Request 11 ###########################################
-obj1.sort(key=lambda x: x.displayed_health)
+objCloudCtx.sort(key=lambda x: x.displayed_health)
 
-for i in range(len(obj1)):
-    print(obj1[i].afisare())
+for i in range(len(objCloudCtx)):
+    print(objCloudCtx[i].afisare())
 print("\n")
 def trackobiecte(a):
     return len(a)
 
-print(trackobiecte(obj1))
+print(trackobiecte(objCloudCtx))
 ################################# Request 15 ###################################
 
 # obj1.sort(key=lambda x: datetime.strptime(x.modTs,"%d-%m-%Y %I:%M:%S %p"),reverse=True)
 # for i in range(len(obj1)):
 #     print(obj1[i].afisare())
-print(len(obj2))
-fisier.close()
+print(len(objHealthInst))
+fread.close()
