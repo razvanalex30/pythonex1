@@ -15,6 +15,7 @@ objectjson = json.loads(jsondata)
 nrobjects = int(objectjson['totalCount'])
 listimdata = objectjson['imdata']
 
+
 objCloudCtx = list()
 objHealthInst = list()
 
@@ -30,10 +31,10 @@ def dictcr(x,y):
     return None
 
 def time(x,y):
-    time = x['modTs'][0:19]
+    time = y['modTs'][0:19]
     date_object = datetime.strptime(time, "%Y-%m-%dT%H:%M:%S")
     date_time = date_object.strftime("%d-%m-%Y %I:%M:%S %p")
-    y['modTs'] = date_time
+    x['modTs'] = date_time
     return None
 
 
@@ -58,11 +59,11 @@ class CloudCtx:
     @classmethod
     def from_json(cls):
         attrdict1 = {'name': None, 'tenantName': None, 'description': None, 'nameAlias': None,
-                     'ctxProfileName': None}
-        super1 = listimdata[len(objCloudCtx)]
-        superelem = super1['hcloudCtx']['attributes']
-        dictcr(attrdict1,superelem)
-        time(superelem,attrdict1)
+                     'ctxProfileName': None, 'modTs': None}
+        pos = listimdata[len(objCloudCtx)]
+        elem = pos['hcloudCtx']['attributes']
+        dictcr(attrdict1,elem)
+        time(attrdict1,elem)
         objhealthinst = HealthInst.from_json2()
         objHealthInst.append(objhealthinst)
         return cls(**attrdict1)
@@ -97,12 +98,12 @@ class HealthInst:
     @classmethod
     def from_json2(cls):
         attrdict2 = {'cur': None, 'maxSev': None}
-        super2 = listimdata[len(objHealthInst)]
-        superelem = super2['hcloudCtx']['children']
-        if superelem:
-            superelem3 = superelem[0]['healthInst']['attributes']
-            dictcr(attrdict2,superelem3)
-            attrdict2['displayed_health'] = 'Healthy' if int(superelem3['cur']) == 100 else 'Unhealthy'
+        pos = listimdata[len(objHealthInst)]
+        elem = pos['hcloudCtx']['children']
+        if elem:
+            healthinstval = elem[0]['healthInst']['attributes']
+            dictcr(attrdict2,healthinstval)
+            attrdict2['displayed_health'] = 'Healthy' if int(attrdict2['cur']) == 100 else 'Unhealthy'
             return cls(**attrdict2)
         else:
             attrdict2['displayed_health'] = None
@@ -127,15 +128,14 @@ def initialization(a):
         CloudCtx.from_json()
     return None
 
-
 initialization(nrobjects)
 
 ######################### Request 11 ###########################################
-objCloudCtx.sort(key=lambda x: x.current_health)
-
-for i in range(len(objCloudCtx)):
-    print(objCloudCtx[i].display())
-print("\n")
+# objCloudCtx.sort(key=lambda x: x.current_health)
+#
+# for i in range(len(objCloudCtx)):
+#     print(objCloudCtx[i].display())
+# print("\n")
 
 
 def trackobiecte(a):
@@ -145,9 +145,9 @@ def trackobiecte(a):
 # print(trackobiecte(objCloudCtx))
 ################################# Request 15 ###################################
 
-# objCloudCtx.sort(key=lambda x: datetime.strptime(x.modTs,"%d-%m-%Y %I:%M:%S %p"),reverse=True)
-# for i in range(len(objCloudCtx)):
-#     print(objCloudCtx[i].display())
+objCloudCtx.sort(key=lambda x: datetime.strptime(x.modTs,"%d-%m-%Y %I:%M:%S %p"),reverse=True)
+for i in range(len(objCloudCtx)):
+    print(objCloudCtx[i].display())
 
 print(CloudCtx.counter)
 print(HealthInst.counter)
