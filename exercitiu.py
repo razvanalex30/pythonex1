@@ -126,7 +126,7 @@ class HealthInst:
 
 
 def initialization(a):
-    for i in range(a):
+    for elem in range(a):
         CloudCtx.from_json()
     return None
 
