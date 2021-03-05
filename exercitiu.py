@@ -70,6 +70,7 @@ class CloudCtx:
         self.ctx_profile_name = isempty(ctx_profile_name)
         self.modTs=isempty(modTs)
         obj1.append(self)
+        self.referinta()
 
 
     def afisare(self):
@@ -121,7 +122,6 @@ class HealthInst:
 def initialization(a):
     for i in range(a):
         CloudCtx.from_json(jsondata)
-        obj1[i].referinta()
     return None
 
 
@@ -144,4 +144,5 @@ print(trackobiecte(obj1))
 obj1.sort(key=lambda x: datetime.strptime(x.modTs,"%d-%m-%Y %I:%M:%S %p"),reverse=True)
 for i in range(len(obj1)):
     print(obj1[i].afisare())
+print(len(obj2))
 fisier.close()
