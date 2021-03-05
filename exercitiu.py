@@ -58,8 +58,8 @@ class CloudCtx:
         date_object = datetime.strptime(time, "%Y-%m-%dT%H:%M:%S")
         date_time = date_object.strftime("%d-%m-%Y %I:%M:%S %p")
         attrdict1['modTs'] = date_time
-        objhealth = HealthInst.from_json2()
-        objHealthInst.append(objhealth)
+        objhealthinst = HealthInst.from_json2()
+        objHealthInst.append(objhealthinst)
         return cls(**attrdict1)
 
     def __init__(self, name, tenant_name, description, name_alias, ctx_profile_name, modTs):
