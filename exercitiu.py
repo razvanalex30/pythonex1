@@ -129,11 +129,10 @@ initialization(nrobjects)
 
 
 ######################### Request 11 ###########################################
-# obj1.sort(key=lambda x: x.displayed_health)
-#
-# for i in range(len(obj1)):
-#     # print(obj1[i].afisare.__doc__)
-#     print(obj1[i].afisare())
+obj1.sort(key=lambda x: x.displayed_health)
+
+for i in range(len(obj1)):
+    print(obj1[i].afisare())
 print("\n")
 def trackobiecte(a):
     return len(a)
@@ -141,8 +140,8 @@ def trackobiecte(a):
 print(trackobiecte(obj1))
 ################################# Request 15 ###################################
 
-obj1.sort(key=lambda x: datetime.strptime(x.modTs,"%d-%m-%Y %I:%M:%S %p"),reverse=True)
-for i in range(len(obj1)):
-    print(obj1[i].afisare())
+# obj1.sort(key=lambda x: datetime.strptime(x.modTs,"%d-%m-%Y %I:%M:%S %p"),reverse=True)
+# for i in range(len(obj1)):
+#     print(obj1[i].afisare())
 print(len(obj2))
 fisier.close()
