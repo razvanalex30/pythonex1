@@ -151,4 +151,5 @@ def trackobiecte(a):
 
 print(CloudCtx.counter)
 print(HealthInst.counter)
+
 fread.close()
