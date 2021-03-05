@@ -72,7 +72,7 @@ class CloudCtx:
         objCloudCtx.append(self)
         self.reference()
 
-    def afisare(self):
+    def display(self):
 
         return '''
         Name: {} ;
@@ -127,7 +127,7 @@ initialization(nrobjects)
 objCloudCtx.sort(key=lambda x: x.current_health)
 
 for i in range(len(objCloudCtx)):
-    print(objCloudCtx[i].afisare())
+    print(objCloudCtx[i].display())
 print("\n")
 
 
@@ -140,6 +140,6 @@ print(trackobiecte(objCloudCtx))
 
 # obj1.sort(key=lambda x: datetime.strptime(x.modTs,"%d-%m-%Y %I:%M:%S %p"),reverse=True)
 # for i in range(len(obj1)):
-#     print(obj1[i].afisare())
+#     print(obj1[i].display())
 print(len(objHealthInst))
 fread.close()
