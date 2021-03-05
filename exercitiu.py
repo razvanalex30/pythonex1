@@ -45,22 +45,22 @@ class CloudCtx:
 
     @classmethod
     def from_json(cls):
-        dictionar = {'name': None, 'tenant_name': None, 'description': None, 'name_alias': None,
+        attrdict1 = {'name': None, 'tenant_name': None, 'description': None, 'name_alias': None,
                      'ctx_profile_name': None, 'modTs': None}
         super1 = listimdata[len(objCloudCtx)]
         superelem = super1['hcloudCtx']['attributes']
-        dictionar['name'] = superelem['name']
-        dictionar['tenant_name'] = superelem['tenantName']
-        dictionar['description'] = superelem['description']
-        dictionar['name_alias'] = superelem['nameAlias']
-        dictionar['ctx_profile_name'] = superelem['ctxProfileName']
+        attrdict1['name'] = superelem['name']
+        attrdict1['tenant_name'] = superelem['tenantName']
+        attrdict1['description'] = superelem['description']
+        attrdict1['name_alias'] = superelem['nameAlias']
+        attrdict1['ctx_profile_name'] = superelem['ctxProfileName']
         time = superelem['modTs'][0:19]
         date_object = datetime.strptime(time, "%Y-%m-%dT%H:%M:%S")
         date_time = date_object.strftime("%d-%m-%Y %I:%M:%S %p")
-        dictionar['modTs'] = date_time
+        attrdict1['modTs'] = date_time
         objhealth = HealthInst.from_json2()
         objHealthInst.append(objhealth)
-        return cls(**dictionar)
+        return cls(**attrdict1)
 
     def __init__(self, name, tenant_name, description, name_alias, ctx_profile_name, modTs):
         self.name = isempty(name)
@@ -89,18 +89,18 @@ class HealthInst:
 
     @classmethod
     def from_json2(cls):
-        dictionar2 = {'current_health': None, 'max_sev': None, "displayed_health": None}
+        attrdict2 = {'current_health': None, 'max_sev': None, "displayed_health": None}
         super2 = listimdata[len(objHealthInst)]
         superelem = super2['hcloudCtx']['children']
         if superelem != []:
             superelem2 = superelem[0]
             superelem3 = superelem2['healthInst']['attributes']
-            dictionar2['current_health'] = superelem3['cur']
-            dictionar2['max_sev'] = superelem3['maxSev']
-            dictionar2['displayed_health'] = 'Healthy' if int(superelem3['cur']) == 100 else 'Unhealthy'
-            return cls(**dictionar2)
+            attrdict2['current_health'] = superelem3['cur']
+            attrdict2['max_sev'] = superelem3['maxSev']
+            attrdict2['displayed_health'] = 'Healthy' if int(superelem3['cur']) == 100 else 'Unhealthy'
+            return cls(**attrdict2)
         else:
-            return cls(**dictionar2)
+            return cls(**attrdict2)
 
     def __init__(self, current_health, max_sev, displayed_health):
         self.current_health = current_health
