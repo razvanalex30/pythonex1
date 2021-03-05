@@ -24,15 +24,18 @@ def isempty(a):
         return "-"
     else:
         return a
-
+def dictcr(x,y):
+    for key in x:
+        x[key]=y[key]
+    return None
 
 class CloudCtx:
     counter = 0
     name = None
-    tenant_name = None
+    tenantName = None
     description = None
-    name_alias = None
-    ctx_profile_name = None
+    nameAlias = None
+    ctxProfileName = None
     current_health = 0
     modTs = None
 
@@ -46,15 +49,11 @@ class CloudCtx:
 
     @classmethod
     def from_json(cls):
-        attrdict1 = {'name': None, 'tenant_name': None, 'description': None, 'name_alias': None,
-                     'ctx_profile_name': None, 'modTs': None}
+        attrdict1 = {'name': None, 'tenantName': None, 'description': None, 'nameAlias': None,
+                     'ctxProfileName': None}
         super1 = listimdata[len(objCloudCtx)]
         superelem = super1['hcloudCtx']['attributes']
-        attrdict1['name'] = superelem['name']
-        attrdict1['tenant_name'] = superelem['tenantName']
-        attrdict1['description'] = superelem['description']
-        attrdict1['name_alias'] = superelem['nameAlias']
-        attrdict1['ctx_profile_name'] = superelem['ctxProfileName']
+        dictcr(attrdict1,superelem)
         time = superelem['modTs'][0:19]
         date_object = datetime.strptime(time, "%Y-%m-%dT%H:%M:%S")
         date_time = date_object.strftime("%d-%m-%Y %I:%M:%S %p")
@@ -63,12 +62,12 @@ class CloudCtx:
         objHealthInst.append(objhealthinst)
         return cls(**attrdict1)
 
-    def __init__(self, name, tenant_name, description, name_alias, ctx_profile_name, modTs):
+    def __init__(self, name, tenantName, description, nameAlias, ctxProfileName, modTs):
         self.name = isempty(name)
-        self.tenant_name = isempty(tenant_name)
+        self.tenant_name = isempty(tenantName)
         self.description = isempty(description)
-        self.name_alias = isempty(name_alias)
-        self.ctx_profile_name = isempty(ctx_profile_name)
+        self.name_alias = isempty(nameAlias)
+        self.ctx_profile_name = isempty(ctxProfileName)
         self.modTs = isempty(modTs)
         objCloudCtx.append(self)
         self.reference()
@@ -85,29 +84,28 @@ class CloudCtx:
 
 
 class HealthInst:
-    current_health = None
-    max_sev = None
+    cur= None
+    maxSev = None
     displayed_health = None
     counter = 0
 
     @classmethod
     def from_json2(cls):
-        attrdict2 = {'current_health': None, 'max_sev': None, "displayed_health": None}
+        attrdict2 = {'cur': None, 'maxSev': None}
         super2 = listimdata[len(objHealthInst)]
         superelem = super2['hcloudCtx']['children']
         if superelem:
-            superelem2 = superelem[0]
-            superelem3 = superelem2['healthInst']['attributes']
-            attrdict2['current_health'] = superelem3['cur']
-            attrdict2['max_sev'] = superelem3['maxSev']
+            superelem3 = superelem[0]['healthInst']['attributes']
+            dictcr(attrdict2,superelem3)
             attrdict2['displayed_health'] = 'Healthy' if int(superelem3['cur']) == 100 else 'Unhealthy'
             return cls(**attrdict2)
         else:
+            attrdict2['displayed_health'] = None
             return cls(**attrdict2)
 
-    def __init__(self, current_health, max_sev, displayed_health):
-        self.current_health = current_health
-        self.max_sev = max_sev
+    def __init__(self, cur, maxSev, displayed_health):
+        self.current_health = cur
+        self.max_sev = maxSev
         self.displayed_health = displayed_health
         HealthInst.counter += 1
 
@@ -128,11 +126,11 @@ def initialization(a):
 initialization(nrobjects)
 
 ######################### Request 11 ###########################################
-objCloudCtx.sort(key=lambda x: x.current_health)
-
-for i in range(len(objCloudCtx)):
-    print(objCloudCtx[i].display())
-print("\n")
+# objCloudCtx.sort(key=lambda x: x.current_health)
+#
+# for i in range(len(objCloudCtx)):
+#     print(objCloudCtx[i].display())
+# print("\n")
 
 
 def trackobiecte(a):
@@ -142,9 +140,9 @@ def trackobiecte(a):
 # print(trackobiecte(objCloudCtx))
 ################################# Request 15 ###################################
 
-# obj1.sort(key=lambda x: datetime.strptime(x.modTs,"%d-%m-%Y %I:%M:%S %p"),reverse=True)
-# for i in range(len(obj1)):
-#     print(obj1[i].display())
+objCloudCtx.sort(key=lambda x: datetime.strptime(x.modTs,"%d-%m-%Y %I:%M:%S %p"),reverse=True)
+for i in range(len(objCloudCtx)):
+    print(objCloudCtx[i].display())
 
 print(CloudCtx.counter)
 print(HealthInst.counter)
