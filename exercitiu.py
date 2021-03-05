@@ -33,8 +33,8 @@ def dictcr(x, y):
 
 
 def time(x, y):
-    time = y['modTs'][0:19]
-    date_object = datetime.strptime(time, "%Y-%m-%dT%H:%M:%S")
+    timevar = y['modTs'][0:19]
+    date_object = datetime.strptime(timevar, "%Y-%m-%dT%H:%M:%S")
     date_time = date_object.strftime("%d-%m-%Y %I:%M:%S %p")
     x['modTs'] = date_time
     return None
