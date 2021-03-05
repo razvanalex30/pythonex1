@@ -38,7 +38,7 @@ class CloudCtx:
 
     def reference(self):
         currhealth = objHealthInst[objCloudCtx.index(self)]
-        if (currhealth.current_health != None):
+        if currhealth.current_health != None:
             self.current_health = int(currhealth.current_health)
             return currhealth.current_health
         else:
@@ -95,7 +95,7 @@ class HealthInst:
         attrdict2 = {'current_health': None, 'max_sev': None, "displayed_health": None}
         super2 = listimdata[len(objHealthInst)]
         superelem = super2['hcloudCtx']['children']
-        if superelem != []:
+        if superelem:
             superelem2 = superelem[0]
             superelem3 = superelem2['healthInst']['attributes']
             attrdict2['current_health'] = superelem3['cur']
