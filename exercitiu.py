@@ -8,7 +8,7 @@ from datetime import datetime
 #     sys.exit()
 # with open(sys.argv[1]) as fisier:
 #     jsondata = fisier.read()
-fread = open('C:/Users/RAlexandru/Desktop/data3.json', 'r')
+fread = open('C:/Users/RAlexandru/Desktop/data4.json', 'r')
 jsondata = fread.read()
 
 objectjson = json.loads(jsondata)
