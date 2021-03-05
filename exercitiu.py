@@ -1,9 +1,9 @@
 import json
 from datetime import datetime
-import sys
-
+# import sys
+#
 # if len(sys.argv)<2:
-#     print("Input File Missing")
+#     print("Input File is missing!")
 #     sys.exit()
 # with open(sys.argv[1]) as fisier:
 #     jsondata = fisier.read()
@@ -70,10 +70,11 @@ class CloudCtx:
         obj1.append(self)
 
     def afisare(self):
-        '''
-        This method prints(Name, Tenant Name, Current Health, ModTs)
-        '''
-        return 'Name: {} ; Tenant Name: {} ; Current Health: {} ; ModTs: {}'.format(self.name, self.tenant_name, self.displayed_health,self.modTs)
+
+        return '''Name: {} ;
+        Tenant Name: {} ;
+        Current Health: {} ;
+        ModTs: {}'''.format(self.name, self.tenant_name, self.displayed_health,self.modTs)
 
 
 class HealthInst:
