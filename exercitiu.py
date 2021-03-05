@@ -30,7 +30,7 @@ class CloudCtx:
     description=None
     name_alias=None
     ctx_profile_name=None
-    displayed_health = None
+    displayed_health = 0
     modTs=None
 
     def referinta(self):
@@ -70,6 +70,9 @@ class CloudCtx:
         obj1.append(self)
 
     def afisare(self):
+        '''
+        This method prints: Name; Tenant Name; Current Health; ModTs;
+        '''
         return 'Name: {} ; Tenant Name: {} ; Current Health: {} ; ModTs: {}'.format(self.name, self.tenant_name, self.displayed_health,self.modTs)
 
 
@@ -118,19 +121,19 @@ initialization(nrobjects)
 
 
 ######################### Request 11 ###########################################
-# obj1.sort(key=lambda x: x.displayed_health)
-#
-# for i in range(len(obj1)):
-#     print("Name: {}; Tenant Name: {}; Displayed Health: {}".format(obj1[i].name,obj1[i].tenant_name,obj1[i].displayed_health))
-# print("\n")
+obj1.sort(key=lambda x: x.displayed_health)
+
+for i in range(len(obj1)):
+    # print(obj1[i].afisare.__doc__)
+    print(obj1[i].afisare())
+print("\n")
 def trackobiecte(a):
     return len(a)
 
 print(trackobiecte(obj1))
 ################################# Request 15 ###################################
 
-obj1.sort(key=lambda x: datetime.strptime(x.modTs,"%d-%m-%Y %I:%M:%S %p"),reverse=True)
-for i in range(len(obj1)):
-    print("Name: {}; Tenant Name: {}; Displayed Health: {}; ModTS: {};".format(obj1[i].name,obj1[i].tenant_name,obj1[i].displayed_health,obj1[i].modTs))
-
+# obj1.sort(key=lambda x: datetime.strptime(x.modTs,"%d-%m-%Y %I:%M:%S %p"),reverse=True)
+# for i in range(len(obj1)):
+#     print(obj1[i].afisare())
 fisier.close()
