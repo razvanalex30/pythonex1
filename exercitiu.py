@@ -29,6 +29,14 @@ def dictcr(x,y):
         x[key]=y[key]
     return None
 
+def time(x,y):
+    time = x['modTs'][0:19]
+    date_object = datetime.strptime(time, "%Y-%m-%dT%H:%M:%S")
+    date_time = date_object.strftime("%d-%m-%Y %I:%M:%S %p")
+    y['modTs'] = date_time
+    return None
+
+
 class CloudCtx:
     counter = 0
     name = None
@@ -54,10 +62,7 @@ class CloudCtx:
         super1 = listimdata[len(objCloudCtx)]
         superelem = super1['hcloudCtx']['attributes']
         dictcr(attrdict1,superelem)
-        time = superelem['modTs'][0:19]
-        date_object = datetime.strptime(time, "%Y-%m-%dT%H:%M:%S")
-        date_time = date_object.strftime("%d-%m-%Y %I:%M:%S %p")
-        attrdict1['modTs'] = date_time
+        time(superelem,attrdict1)
         objhealthinst = HealthInst.from_json2()
         objHealthInst.append(objhealthinst)
         return cls(**attrdict1)
@@ -126,11 +131,11 @@ def initialization(a):
 initialization(nrobjects)
 
 ######################### Request 11 ###########################################
-# objCloudCtx.sort(key=lambda x: x.current_health)
-#
-# for i in range(len(objCloudCtx)):
-#     print(objCloudCtx[i].display())
-# print("\n")
+objCloudCtx.sort(key=lambda x: x.current_health)
+
+for i in range(len(objCloudCtx)):
+    print(objCloudCtx[i].display())
+print("\n")
 
 
 def trackobiecte(a):
@@ -140,9 +145,9 @@ def trackobiecte(a):
 # print(trackobiecte(objCloudCtx))
 ################################# Request 15 ###################################
 
-objCloudCtx.sort(key=lambda x: datetime.strptime(x.modTs,"%d-%m-%Y %I:%M:%S %p"),reverse=True)
-for i in range(len(objCloudCtx)):
-    print(objCloudCtx[i].display())
+# objCloudCtx.sort(key=lambda x: datetime.strptime(x.modTs,"%d-%m-%Y %I:%M:%S %p"),reverse=True)
+# for i in range(len(objCloudCtx)):
+#     print(objCloudCtx[i].display())
 
 print(CloudCtx.counter)
 print(HealthInst.counter)
