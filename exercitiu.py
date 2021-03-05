@@ -32,19 +32,19 @@ class CloudCtx:
     description = None
     name_alias = None
     ctx_profile_name = None
-    displayed_health = 0
+    current_health = 0
     modTs = None
 
     def reference(self):
         currhealth = objHealthInst[objCloudCtx.index(self)]
         if (currhealth.current_health != None):
-            self.displayed_health = int(currhealth.current_health)
+            self.current_health = int(currhealth.current_health)
             return currhealth.current_health
         else:
             return None
 
     @classmethod
-    def from_json(cls, jsondata):
+    def from_json(cls):
         dictionar = {'name': None, 'tenant_name': None, 'description': None, 'name_alias': None,
                      'ctx_profile_name': None, 'modTs': None}
         super1 = listimdata[len(objCloudCtx)]
@@ -79,7 +79,7 @@ class CloudCtx:
         Tenant Name: {} ;
         Current Health: {} ;
         ModTs: {}
-        '''.format(self.name, self.tenant_name, self.displayed_health, self.modTs)
+        '''.format(self.name, self.tenant_name, self.current_health, self.modTs)
 
 
 class HealthInst:
@@ -117,14 +117,14 @@ class HealthInst:
 
 def initialization(a):
     for i in range(a):
-        CloudCtx.from_json(jsondata)
+        CloudCtx.from_json()
     return None
 
 
 initialization(nrobjects)
 
 ######################### Request 11 ###########################################
-objCloudCtx.sort(key=lambda x: x.displayed_health)
+objCloudCtx.sort(key=lambda x: x.current_health)
 
 for i in range(len(objCloudCtx)):
     print(objCloudCtx[i].afisare())
