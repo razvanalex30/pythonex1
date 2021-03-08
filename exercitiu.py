@@ -19,39 +19,6 @@ objCloudCtx = list()
 objHealthInst = list()
 
 
-def rplemptystr(inputstring):
-    """
-    :param inputstring: Has a string as an input
-    :return: Returns "-" if the string is empty or the respective value of the string
-    """
-    if inputstring == "":
-        return "-"
-    else:
-        return inputstring
-
-
-def dictcreate(dict1, dict2):
-    """
-    Makes the correlation between dictionary 1 keys and dictionary 2 keys.
-    :param dict1: input dictionary 1
-    :param dict2: input dictionary 2
-    """
-    for key in dict1:
-        dict1[key] = dict2[key]
-
-
-def timeretrieve(dict1, dict2):
-    """
-    Used for converting the time from json to the desired output <day-month-year hour:minute:second Am/PM>
-    :param dict1: input dictionary 1
-    :param dict2: input dictionary 2
-    """
-    timevar = dict2['modTs'][0:19]
-    dateobj = datetime.strptime(timevar, "%Y-%m-%dT%H:%M:%S")
-    datestring = dateobj.strftime("%d-%m-%Y %I:%M:%S %p")
-    dict1['modTs'] = datestring
-
-
 class CloudCtx:
     """
     CloudCtx class
@@ -64,6 +31,39 @@ class CloudCtx:
     ctxProfileName = None
     currenthealth = 0
     modTs = None
+
+    @staticmethod
+    def timeretrieve(dict1, dict2):
+        """
+        Used for converting the time from json to the desired output <day-month-year hour:minute:second Am/PM>
+        :param dict1: input dictionary 1
+        :param dict2: input dictionary 2
+        """
+        timevar = dict2['modTs'][0:19]
+        dateobj = datetime.strptime(timevar, "%Y-%m-%dT%H:%M:%S")
+        datestring = dateobj.strftime("%d-%m-%Y %I:%M:%S %p")
+        dict1['modTs'] = datestring
+
+    @staticmethod
+    def dictcreate(dict1, dict2):
+        """
+        Makes the correlation between dictionary 1 keys and dictionary 2 keys.
+        :param dict1: input dictionary 1
+        :param dict2: input dictionary 2
+        """
+        for key in dict1:
+            dict1[key] = dict2[key]
+
+    @staticmethod
+    def rplemptystr(inputstring):
+        """
+        :param inputstring: Has a string as an input
+        :return: Returns "-" if the string is empty or the respective value of the string
+        """
+        if inputstring == "":
+            return "-"
+        else:
+            return inputstring
 
     def referencehealthinst(self):
         """
@@ -87,8 +87,8 @@ class CloudCtx:
                      'ctxProfileName': None, 'modTs': None}
         pos = listimdata[len(objCloudCtx)]
         elem = pos['hcloudCtx']['attributes']
-        dictcreate(attrdict1, elem)
-        timeretrieve(attrdict1, elem)
+        cls.dictcreate(attrdict1, elem)
+        cls.timeretrieve(attrdict1, elem)
         objhealthinst = HealthInst.retrievefromjson2()
         objHealthInst.append(objhealthinst)
         return cls(**attrdict1)
@@ -97,12 +97,12 @@ class CloudCtx:
         """
         Object initialization.
         """
-        self.name = rplemptystr(name)
-        self.tenantName = rplemptystr(tenantName)
-        self.description = rplemptystr(description)
-        self.nameAlias = rplemptystr(nameAlias)
-        self.ctxProfileName = rplemptystr(ctxProfileName)
-        self.modTs = rplemptystr(modTs)
+        self.name = self.rplemptystr(name)
+        self.tenantName = self.rplemptystr(tenantName)
+        self.description = self.rplemptystr(description)
+        self.nameAlias = self.rplemptystr(nameAlias)
+        self.ctxProfileName = self.rplemptystr(ctxProfileName)
+        self.modTs = self.rplemptystr(modTs)
         objCloudCtx.append(self)
         self.referencehealthinst()
         CloudCtx.counter += 1
@@ -129,6 +129,16 @@ class HealthInst:
     displayedhealth = None
     counter = 0
 
+    @staticmethod
+    def dictcreate(dict1, dict2):
+        """
+        Makes the correlation between dictionary 1 keys and dictionary 2 keys.
+        :param dict1: input dictionary 1
+        :param dict2: input dictionary 2
+        """
+        for key in dict1:
+            dict1[key] = dict2[key]
+
     @classmethod
     def retrievefromjson2(cls):
         """
@@ -140,7 +150,7 @@ class HealthInst:
         elem = pos['hcloudCtx']['children']
         if elem:
             healthinstval = elem[0]['healthInst']['attributes']
-            dictcreate(attrdict2, healthinstval)
+            cls.dictcreate(attrdict2, healthinstval)
             attrdict2['displayedhealth'] = 'Healthy' if int(attrdict2['cur']) == 100 else 'Unhealthy'
             return cls(**attrdict2)
         else:
