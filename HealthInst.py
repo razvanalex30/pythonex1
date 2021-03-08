@@ -1,5 +1,6 @@
 import json
-import sys
+
+# import sys
 
 # if len(sys.argv) < 2:
 #     print("Input File is missing!")
@@ -12,7 +13,6 @@ jsondata = fread.read()
 objectjson = json.loads(jsondata)
 nrobjects = int(objectjson['totalCount'])
 listimdata = objectjson['imdata']
-
 
 
 class HealthInst:

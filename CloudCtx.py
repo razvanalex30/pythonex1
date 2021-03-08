@@ -2,7 +2,7 @@ import json
 from datetime import datetime
 from HealthInst import HealthInst
 
-import sys
+# import sys
 
 # if len(sys.argv) < 2:
 #     print("Input File is missing!")
@@ -17,18 +17,12 @@ nrobjects = int(objectjson['totalCount'])
 listimdata = objectjson['imdata']
 
 
-
 class CloudCtx:
     """
     CloudCtx class
     """
     objCloudCtx = list()
     counter = 0
-    name = None
-    tenantName = None
-    description = None
-    nameAlias = None
-    ctxProfileName = None
     currenthealth = 0
     modTs = None
 

@@ -9,6 +9,8 @@ if len(sys.argv) < 2:
     sys.exit()
 with open(sys.argv[1]) as fread:
     jsondata = fread.read()
+
+
 # fread = open('C:/Users/RAlexandru/Desktop/data4.json', 'r')
 # jsondata = fread.read()
 
@@ -23,9 +25,9 @@ class FromJson:
 
     @classmethod
     def objinitialization(cls):
-        listimdata=cls.retrievejson()
-        for elem in listimdata:
-            cloudctx = CloudCtx.retrievefromjson()
+        listimdata = cls.retrievejson()
+        for _ in listimdata:
+            CloudCtx.retrievefromjson()
 
     @classmethod
     def sortcurrenthealth(cls):
@@ -44,6 +46,5 @@ FromJson.retrievejson()
 FromJson.objinitialization()
 # FromJson.sortcurrenthealth()
 FromJson.sorttime()
-
 
 fread.close()
