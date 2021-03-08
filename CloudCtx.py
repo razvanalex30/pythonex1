@@ -1,20 +1,5 @@
-import json
 from datetime import datetime
 from HealthInst import HealthInst
-
-# import sys
-
-# if len(sys.argv) < 2:
-#     print("Input File is missing!")
-#     sys.exit()
-# with open(sys.argv[1]) as fread:
-#     jsondata = fread.read()
-fread = open('C:/Users/RAlexandru/Desktop/data4.json', 'r')
-jsondata = fread.read()
-#
-objectjson = json.loads(jsondata)
-nrobjects = int(objectjson['totalCount'])
-listimdata = objectjson['imdata']
 
 
 class CloudCtx:
@@ -72,18 +57,17 @@ class CloudCtx:
             self.currenthealth = 0
 
     @classmethod
-    def retrievefromjson(cls):
+    def retrievefromjson(cls, elem):
         """
         Retrieve the values of the attributes from the Json file
         :return: Get attributes values for the class.
         """
         attrdict1 = {'name': None, 'tenantName': None, 'description': None, 'nameAlias': None,
                      'ctxProfileName': None, 'modTs': None}
-        pos = listimdata[cls.counter]
-        elem = pos['hcloudCtx']['attributes']
-        cls.dictcreate(attrdict1, elem)
-        cls.timeretrieve(attrdict1, elem)
-        objhealthinst = HealthInst.retrievefromjson2()
+        elem2 = elem['hcloudCtx']['attributes']
+        cls.dictcreate(attrdict1, elem2)
+        cls.timeretrieve(attrdict1, elem2)
+        objhealthinst = HealthInst.retrievefromjson2(elem)
         HealthInst.objHealthInst.append(objhealthinst)
         return cls(**attrdict1)
 

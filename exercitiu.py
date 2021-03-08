@@ -26,8 +26,8 @@ class FromJson:
     @classmethod
     def objinitialization(cls):
         listimdata = cls.retrievejson()
-        for _ in listimdata:
-            CloudCtx.retrievefromjson()
+        for elem in listimdata:
+            CloudCtx.retrievefromjson(elem)
 
     @classmethod
     def sortcurrenthealth(cls):
@@ -44,7 +44,7 @@ class FromJson:
 
 FromJson.retrievejson()
 FromJson.objinitialization()
-# FromJson.sortcurrenthealth()
-FromJson.sorttime()
+FromJson.sortcurrenthealth()
+# FromJson.sorttime()
 
 fread.close()
