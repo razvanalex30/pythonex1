@@ -20,6 +20,10 @@ objHealthInst = list()
 
 
 def rplemptystr(inputstring):
+    """
+    :param inputstring: Has a string as an input
+    :return: Returns "-" if the string is empty or the respective value of the string
+    """
     if inputstring == "":
         return "-"
     else:
@@ -27,11 +31,21 @@ def rplemptystr(inputstring):
 
 
 def dictcreate(dict1, dict2):
+    """
+    Makes the correlation between dictionary 1 keys and dictionary 2 keys.
+    :param dict1: input dictionary 1
+    :param dict2: input dictionary 2
+    """
     for key in dict1:
         dict1[key] = dict2[key]
 
 
 def timeretrieve(dict1, dict2):
+    """
+    Used for converting the time from json to the desired output <day-month-year hour:minute:second Am/PM>
+    :param dict1: input dictionary 1
+    :param dict2: input dictionary 2
+    """
     timevar = dict2['modTs'][0:19]
     dateobj = datetime.strptime(timevar, "%Y-%m-%dT%H:%M:%S")
     datestring = dateobj.strftime("%d-%m-%Y %I:%M:%S %p")
@@ -39,6 +53,9 @@ def timeretrieve(dict1, dict2):
 
 
 class CloudCtx:
+    """
+    CloudCtx class
+    """
     counter = 0
     name = None
     tenantName = None
@@ -49,6 +66,10 @@ class CloudCtx:
     modTs = None
 
     def referencehealthinst(self):
+        """
+        Used to retrieve the current health of the corresponding HealthInst object to the CloudCtx object.
+        :return: Currenth Health of the corresponding HealthInst object
+        """
         currhealth = objHealthInst[objCloudCtx.index(self)]
         if currhealth.currenthealth is not None:
             self.currenthealth = int(currhealth.currenthealth)
@@ -58,6 +79,10 @@ class CloudCtx:
 
     @classmethod
     def retrievefromjson(cls):
+        """
+        Retrieve the values of the attributes from the Json file
+        :return: Get attributes values for the class.
+        """
         attrdict1 = {'name': None, 'tenantName': None, 'description': None, 'nameAlias': None,
                      'ctxProfileName': None, 'modTs': None}
         pos = listimdata[len(objCloudCtx)]
@@ -69,6 +94,9 @@ class CloudCtx:
         return cls(**attrdict1)
 
     def __init__(self, name, tenantName, description, nameAlias, ctxProfileName, modTs):
+        """
+        Object initialization.
+        """
         self.name = rplemptystr(name)
         self.tenantName = rplemptystr(tenantName)
         self.description = rplemptystr(description)
@@ -80,7 +108,10 @@ class CloudCtx:
         CloudCtx.counter += 1
 
     def displaycloudctx(self):
-
+        """
+        Used to display info about the CloudCtx object.
+        :return: Info about the CloudCtx object created, with the corresponding current health value.
+        """
         return '''
         Name: {} ;
         Tenant Name: {} ;
