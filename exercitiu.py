@@ -121,6 +121,9 @@ class CloudCtx:
 
 
 class HealthInst:
+    """
+    Class HealthInst
+    """
     cur = None
     maxSev = None
     displayedhealth = None
@@ -128,6 +131,10 @@ class HealthInst:
 
     @classmethod
     def retrievefromjson2(cls):
+        """
+        Retrieve the values of the attributes from the Json file
+        :return: Get attributes values for the class HealthInst
+        """
         attrdict2 = {'cur': None, 'maxSev': None}
         pos = listimdata[len(objHealthInst)]
         elem = pos['hcloudCtx']['children']
@@ -141,12 +148,19 @@ class HealthInst:
             return cls(**attrdict2)
 
     def __init__(self, cur, maxSev, displayedhealth):
+        """
+        Object initialization
+        """
         self.currenthealth = cur
         self.max_sev = maxSev
         self.displayedhealth = displayedhealth
         HealthInst.counter += 1
 
     def displayhealthinst(self):
+        """
+        Used to return info about the HealthInst object
+        :return: Info about the HealthInst object.
+        """
         return '''
         Current Health: {} ;
         Max Sev: {} ;
@@ -155,6 +169,10 @@ class HealthInst:
 
 
 def objinitialization(lenlist):
+    """
+    Used to create the objects CloudCtx and HealthInst from the JSON file
+    :param lenlist: Number of objects in total in the JSON file
+    """
     for elem in range(lenlist):
         CloudCtx.retrievefromjson()
 
@@ -171,6 +189,11 @@ objinitialization(nrobjects)
 
 
 def objectcounter(inputlist):
+    """
+
+    :param inputlist: The list which contains the references to the CloudCtx/HealthInst objects
+    :return: Returns the length of the list in order to keep track of the objects created.
+    """
     return len(inputlist)
 
 
