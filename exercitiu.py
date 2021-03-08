@@ -11,10 +11,6 @@ with open(sys.argv[1]) as fread:
     jsondata = fread.read()
 
 
-# fread = open('C:/Users/RAlexandru/Desktop/data4.json', 'r')
-# jsondata = fread.read()
-
-
 class FromJson:
 
     @classmethod
