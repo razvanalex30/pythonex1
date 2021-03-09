@@ -1,5 +1,5 @@
 from datetime import datetime
-from HealthInst import HealthInst
+from health_inst import HealthInst
 
 
 class CloudCtx:
@@ -12,7 +12,7 @@ class CloudCtx:
     modTs = None
 
     @staticmethod
-    def timeretrieve(dict1, dict2):
+    def time_retrieve(dict1, dict2):
         """
         Used for converting the time from json to the desired output <day-month-year hour:minute:second Am/PM>
         :param dict1: input dictionary 1
@@ -24,7 +24,7 @@ class CloudCtx:
         dict1['modTs'] = datestring
 
     @staticmethod
-    def dictcreate(dict1, dict2):
+    def dict_create(dict1, dict2):
         """
         Makes the correlation between dictionary 1 keys and dictionary 2 keys.
         :param dict1: input dictionary 1
@@ -44,7 +44,7 @@ class CloudCtx:
         else:
             return inputstring
 
-    def referencehealthinst(self):
+    def reference_health_inst(self):
         """
         Used to retrieve the current health of the corresponding HealthInst object to the CloudCtx object.
         :return: Currenth Health of the corresponding HealthInst object
@@ -57,7 +57,7 @@ class CloudCtx:
             self.currenthealth = 0
 
     @classmethod
-    def retrievefromjson(cls, elem):
+    def retrieve_from_json(cls, elem):
         """
         Retrieve the values of the attributes from the Json file
         :return: Get attributes values for the class.
@@ -65,9 +65,9 @@ class CloudCtx:
         attrdict1 = {'name': None, 'tenantName': None, 'description': None, 'nameAlias': None,
                      'ctxProfileName': None, 'modTs': None}
         elem2 = elem['hcloudCtx']['attributes']
-        cls.dictcreate(attrdict1, elem2)
-        cls.timeretrieve(attrdict1, elem2)
-        objhealthinst = HealthInst.retrievefromjson2(elem)
+        cls.dict_create(attrdict1, elem2)
+        cls.time_retrieve(attrdict1, elem2)
+        objhealthinst = HealthInst.retrieve_from_json2(elem)
         HealthInst.objHealthInst.append(objhealthinst)
         return cls(**attrdict1)
 
@@ -83,10 +83,10 @@ class CloudCtx:
         self.ctxProfileName = self.rplemptystr(ctxProfileName)
         self.modTs = self.rplemptystr(modTs)
         CloudCtx.objCloudCtx.append(self)
-        self.referencehealthinst()
+        self.reference_health_inst()
         CloudCtx.counter += 1
 
-    def displaycloudctx(self):
+    def display_cloud_ctx(self):
         """
         Used to display info about the CloudCtx object.
         :return: Info about the CloudCtx object created, with the corresponding current health value.

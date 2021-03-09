@@ -1,6 +1,6 @@
 import json
 from datetime import datetime
-from CloudCtx import CloudCtx
+from cloud_ctx import CloudCtx
 
 import sys
 
@@ -17,7 +17,7 @@ class FromJson:
     """
 
     @classmethod
-    def retrievejson(cls):
+    def retrieve_json(cls):
         """
         Retrieve information from the JSON file
         :return: listimdata used for creating the CloudCtx and HealthInst objects
@@ -27,34 +27,34 @@ class FromJson:
         return listimdata
 
     @classmethod
-    def objinitialization(cls):
+    def obj_initialization(cls):
         """
         The initialization of the objects. Parsing all the dictionaries to create the objects
         """
-        listimdata = cls.retrievejson()
+        listimdata = cls.retrieve_json()
         for elem in listimdata:
-            CloudCtx.retrievefromjson(elem)
+            CloudCtx.retrieve_from_json(elem)
 
     @classmethod
-    def sortcurrenthealth(cls):
+    def sort_currenthealth(cls):
         """
         Method used to sort the objects from low -> highest of the currenthealth
         """
         CloudCtx.objCloudCtx.sort(key=lambda x: x.currenthealth)
         for elem in CloudCtx.objCloudCtx:
-            print(elem.displaycloudctx())
+            print(elem.display_cloud_ctx())
 
     @classmethod
-    def sorttime(cls):
+    def sort_time(cls):
         """
         Method used to sort the object from the most recent -> oldest of the ModTs
         """
         CloudCtx.objCloudCtx.sort(key=lambda x: datetime.strptime(x.modTs, "%d-%m-%Y %I:%M:%S %p"), reverse=True)
         for elem in CloudCtx.objCloudCtx:
-            print(elem.displaycloudctx())
+            print(elem.display_cloud_ctx())
 
 
-FromJson.retrievejson()
-FromJson.objinitialization()
-FromJson.sortcurrenthealth()
-FromJson.sorttime()
+FromJson.retrieve_json()
+FromJson.obj_initialization()
+FromJson.sort_currenthealth()
+FromJson.sort_time()
