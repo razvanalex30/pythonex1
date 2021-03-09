@@ -42,7 +42,7 @@ class HealthInst:
         Object initialization
         """
         self.currenthealth = cur
-        self.max_sev = maxSev
+        self.maxsev = maxSev
         self.displayedhealth = displayedhealth
         HealthInst.counter += 1
 
@@ -55,4 +55,4 @@ class HealthInst:
         Current Health: {} ;
         Max Sev: {} ;
         Displayed Health: {}
-          '''.format(self.currenthealth, self.max_sev, self.displayedhealth)
+          '''.format(self.currenthealth, self.maxsev, self.displayedhealth)
