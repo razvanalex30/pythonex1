@@ -15,6 +15,7 @@ class FromJson:
     """
     External Class used to parse all the information from JSON file and to create the objects
     """
+
     @classmethod
     def retrievejson(cls):
         """
@@ -40,8 +41,8 @@ class FromJson:
         Method used to sort the objects from low -> highest of the currenthealth
         """
         CloudCtx.objCloudCtx.sort(key=lambda x: x.currenthealth)
-        for i in range(len(CloudCtx.objCloudCtx)):
-            print(CloudCtx.objCloudCtx[i].displaycloudctx())
+        for elem in CloudCtx.objCloudCtx:
+            print(elem.displaycloudctx())
 
     @classmethod
     def sorttime(cls):
@@ -49,13 +50,11 @@ class FromJson:
         Method used to sort the object from the most recent -> oldest of the ModTs
         """
         CloudCtx.objCloudCtx.sort(key=lambda x: datetime.strptime(x.modTs, "%d-%m-%Y %I:%M:%S %p"), reverse=True)
-        for i in range(len(CloudCtx.objCloudCtx)):
-            print(CloudCtx.objCloudCtx[i].displaycloudctx())
+        for elem in CloudCtx.objCloudCtx:
+            print(elem.displaycloudctx())
 
 
 FromJson.retrievejson()
 FromJson.objinitialization()
 FromJson.sortcurrenthealth()
-# FromJson.sorttime()
-
-fread.close()
+FromJson.sorttime()
